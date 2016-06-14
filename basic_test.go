@@ -15,7 +15,7 @@ import (
 func TestGetHandler(t *testing.T) {
 	setupNats()
 	n.Subscribe("config.get.postgres", func(msg *nats.Msg) {
-		n.Publish(msg.Reply, []byte(`{"names":["users","datacenters","datacenters","services"],"password":"","url":"postgres://postgres@127.0.0.1","user":""}`))
+		n.Publish(msg.Reply, []byte(`{"names":["users","datacenters","groups","services"],"password":"","url":"postgres://postgres@127.0.0.1","user":""}`))
 	})
 	setupPg()
 	startHandler()
