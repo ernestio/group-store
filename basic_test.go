@@ -21,6 +21,18 @@ func TestGetHandler(t *testing.T) {
 	startHandler()
 
 	Convey("Scenario: getting a group", t, func() {
+		setupTestSuite()
+	})
 
+	Convey("Scenario: deleting a group", t, func() {
+		setupTestSuite()
+	})
+
+	Convey("Scenario: group set", t, func() {
+		setupTestSuite()
+	})
+
+	Convey("Scenario: find datacenters", t, func() {
+		setupTestSuite()
 	})
 }
