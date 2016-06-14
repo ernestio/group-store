@@ -66,6 +66,21 @@ func TestGetHandler(t *testing.T) {
 			So(string(msg.Data), ShouldEqual, string(handler.NotFoundErrorMessage))
 			So(err, ShouldEqual, nil)
 		})
+
+		Convey("Given the group exists on the database", func() {
+			createEntities(1)
+			last := Entity{}
+			db.First(&last)
+			id := fmt.Sprint(last.ID)
+
+			msg, err := n.Request("datacenter.del", []byte(`{"id":`+id+`}`), time.Second)
+			So(string(msg.Data), ShouldEqual, string(handler.DeletedMessage))
+			So(err, ShouldEqual, nil)
+
+			deleted := Entity{}
+			db.First(&deleted, id)
+			So(deleted.ID, ShouldEqual, 0)
+		})
 	})
 
 	Convey("Scenario: group set", t, func() {
