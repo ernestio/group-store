@@ -44,6 +44,19 @@ func TestGetHandler(t *testing.T) {
 			So(output.Name, ShouldEqual, e.Name)
 			So(err, ShouldEqual, nil)
 		})
+
+		Convey("Given the group exists on the database and searching by name", func() {
+			createEntities(1)
+			e := Entity{}
+			db.First(&e)
+
+			msg, err := n.Request("group.get", []byte(`{"name":"`+e.Name+`"}`), time.Second)
+			output := Entity{}
+			json.Unmarshal(msg.Data, &output)
+			So(output.ID, ShouldEqual, e.ID)
+			So(output.Name, ShouldEqual, e.Name)
+			So(err, ShouldEqual, nil)
+		})
 	})
 
 	Convey("Scenario: deleting a group", t, func() {
