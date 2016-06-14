@@ -5,6 +5,8 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"testing"
 	"time"
 
@@ -26,6 +28,20 @@ func TestGetHandler(t *testing.T) {
 		Convey("Given the group does not exist on the database", func() {
 			msg, err := n.Request("group.get", []byte(`{"id":"32"}`), time.Second)
 			So(string(msg.Data), ShouldEqual, string(handler.NotFoundErrorMessage))
+			So(err, ShouldEqual, nil)
+		})
+
+		Convey("Given the group exists on the database", func() {
+			createEntities(1)
+			e := Entity{}
+			db.First(&e)
+			id := fmt.Sprint(e.ID)
+
+			msg, err := n.Request("group.get", []byte(`{"id":`+id+`}`), time.Second)
+			output := Entity{}
+			json.Unmarshal(msg.Data, &output)
+			So(output.ID, ShouldEqual, e.ID)
+			So(output.Name, ShouldEqual, e.Name)
 			So(err, ShouldEqual, nil)
 		})
 	})
