@@ -6,6 +6,7 @@ package main
 
 import (
 	"testing"
+	"time"
 
 	"github.com/nats-io/nats"
 
@@ -22,6 +23,11 @@ func TestGetHandler(t *testing.T) {
 
 	Convey("Scenario: getting a group", t, func() {
 		setupTestSuite()
+		Convey("Given the group does not exist on the database", func() {
+			msg, err := n.Request("group.get", []byte(`{"id":"32"}`), time.Second)
+			So(string(msg.Data), ShouldEqual, string(handler.NotFoundErrorMessage))
+			So(err, ShouldEqual, nil)
+		})
 	})
 
 	Convey("Scenario: deleting a group", t, func() {
