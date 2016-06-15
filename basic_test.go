@@ -130,5 +130,14 @@ func TestGetHandler(t *testing.T) {
 
 	Convey("Scenario: find datacenters", t, func() {
 		setupTestSuite()
+		Convey("Given groups exist on the database", func() {
+			createEntities(20)
+			Convey("Then I should get a list of groups", func() {
+				msg, _ := n.Request("group.find", []byte(`{}`), time.Second)
+				list := []Entity{}
+				json.Unmarshal(msg.Data, &list)
+				So(len(list), ShouldEqual, 20)
+			})
+		})
 	})
 }
