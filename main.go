@@ -23,7 +23,7 @@ func startHandler() {
 	handler = natsdb.Handler{
 		NotFoundErrorMessage:   []byte(`{"error":"not found"}`),
 		UnexpectedErrorMessage: []byte(`{"error":"unexpected"}`),
-		DeletedMessage:         []byte(`{"deleted"}`),
+		DeletedMessage:         []byte(`"deleted"`),
 		Nats:                   n,
 		NewModel: func() natsdb.Model {
 			return &Entity{}
