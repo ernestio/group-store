@@ -85,6 +85,20 @@ func TestGetHandler(t *testing.T) {
 
 	Convey("Scenario: group set", t, func() {
 		setupTestSuite()
+		Convey("Given we don't provide any id as part of the body", func() {
+			Convey("Then it should return the created record and it should be stored on DB", func() {
+				msg, err := n.Request("group.set", []byte(`{"name":"foo"}`), time.Second)
+				output := Entity{}
+				output.LoadFromInput(msg.Data)
+				So(output.ID, ShouldNotEqual, nil)
+				So(output.Name, ShouldEqual, "foo")
+				So(err, ShouldEqual, nil)
+
+				stored := Entity{}
+				db.First(&stored, output.ID)
+				So(stored.Name, ShouldEqual, "foo")
+			})
+		})
 	})
 
 	Convey("Scenario: find datacenters", t, func() {
