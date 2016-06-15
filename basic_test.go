@@ -107,6 +107,25 @@ func TestGetHandler(t *testing.T) {
 				So(err, ShouldEqual, nil)
 			})
 		})
+
+		Convey("Given we provide an existing id", func() {
+			createEntities(1)
+			e := Entity{}
+			db.First(&e)
+			id := fmt.Sprint(e.ID)
+			Convey("Then we should receive an updated entity", func() {
+				msg, err := n.Request("group.set", []byte(`{"id": `+id+`, "name":"foo"}`), time.Second)
+				output := Entity{}
+				output.LoadFromInput(msg.Data)
+				So(output.ID, ShouldNotEqual, nil)
+				So(output.Name, ShouldEqual, "foo")
+				So(err, ShouldEqual, nil)
+
+				stored := Entity{}
+				db.First(&stored, output.ID)
+				So(stored.Name, ShouldEqual, "foo")
+			})
+		})
 	})
 
 	Convey("Scenario: find datacenters", t, func() {
