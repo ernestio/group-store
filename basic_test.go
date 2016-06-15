@@ -73,7 +73,7 @@ func TestGetHandler(t *testing.T) {
 			db.First(&last)
 			id := fmt.Sprint(last.ID)
 
-			msg, err := n.Request("datacenter.del", []byte(`{"id":`+id+`}`), time.Second)
+			msg, err := n.Request("group.del", []byte(`{"id":`+id+`}`), time.Second)
 			So(string(msg.Data), ShouldEqual, string(handler.DeletedMessage))
 			So(err, ShouldEqual, nil)
 
