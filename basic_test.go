@@ -99,6 +99,14 @@ func TestGetHandler(t *testing.T) {
 				So(stored.Name, ShouldEqual, "foo")
 			})
 		})
+
+		Convey("Given we provide an unexisting id", func() {
+			Convey("Then we should receive a not found message", func() {
+				msg, err := n.Request("group.set", []byte(`{"id": 1000, "name":"foo"}`), time.Second)
+				So(string(msg.Data), ShouldEqual, string(handler.NotFoundErrorMessage))
+				So(err, ShouldEqual, nil)
+			})
+		})
 	})
 
 	Convey("Scenario: find datacenters", t, func() {
