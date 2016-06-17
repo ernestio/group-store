@@ -22,6 +22,11 @@ type Entity struct {
 	DeletedAt *time.Time `json:"-" sql:"index"`
 }
 
+// TableName : set Entity's table name to be groups
+func (Entity) TableName() string {
+	return "groups"
+}
+
 // Find : based on the defined fields for the current entity
 // will perform a search on the database
 func (e *Entity) Find() []interface{} {
