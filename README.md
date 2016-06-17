@@ -4,8 +4,8 @@ It manages all ernest group storage through a public Nats API
 
 ## Build status
 
-* master:  [![CircleCI Master](https://circleci.com/gh/r3labs/group-store/tree/master.svg?style=svg)](https://circleci.com/gh/r3labs/group-store/tree/master)
-* develop: [![CircleCI Develop](https://circleci.com/gh/r3labs/group-store/tree/develop.svg?style=svg)](https://circleci.com/gh/r3labs/group-store/tree/develop)
+* master:  [![CircleCI Master](https://circleci.com/gh/ernestio/group-store/tree/master.svg?style=svg)](https://circleci.com/gh/ernestio/group-store/tree/master)
+* develop: [![CircleCI Develop](https://circleci.com/gh/ernestio/group-store/tree/develop.svg?style=svg)](https://circleci.com/gh/ernestio/group-store/tree/develop)
 
 ## Installation
 
