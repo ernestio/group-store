@@ -15,7 +15,6 @@ import (
 // Entity : the database mapped entity
 type Entity struct {
 	ID        uint   `json:"id" gorm:"primary_key"`
-	GroupID   uint   `json:"group_id" gorm:"unique_index:idx_per_group"`
 	Name      string `json:"name" gorm:"unique_index:idx_per_group"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
