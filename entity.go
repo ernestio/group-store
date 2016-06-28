@@ -30,7 +30,9 @@ func (Entity) TableName() string {
 // will perform a search on the database
 func (e *Entity) Find() []interface{} {
 	entities := []Entity{}
-	db.Find(&entities)
+	if e.Name != "" {
+		db.Where("name = ?", e.Name).Find(&entities)
+	}
 
 	list := make([]interface{}, len(entities))
 	for i, s := range entities {

@@ -133,10 +133,10 @@ func TestGetHandler(t *testing.T) {
 		Convey("Given groups exist on the database", func() {
 			createEntities(20)
 			Convey("Then I should get a list of groups", func() {
-				msg, _ := n.Request("group.find", []byte(`{}`), time.Second)
+				msg, _ := n.Request("group.find", []byte(`{"name":"Test1"}`), time.Second)
 				list := []Entity{}
 				json.Unmarshal(msg.Data, &list)
-				So(len(list), ShouldEqual, 20)
+				So(len(list), ShouldEqual, 1)
 			})
 		})
 	})
