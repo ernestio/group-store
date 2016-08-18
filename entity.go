@@ -32,6 +32,8 @@ func (e *Entity) Find() []interface{} {
 	entities := []Entity{}
 	if e.Name != "" {
 		db.Where("name = ?", e.Name).Find(&entities)
+	} else {
+		db.Find(&entities)
 	}
 
 	list := make([]interface{}, len(entities))
